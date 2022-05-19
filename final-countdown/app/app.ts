@@ -8,7 +8,7 @@ class Main {
   private countdowId: number
 
   getFullDays(time: number): number {
-    return (time - (time % (1000 * 60 * 60 * 24))) /(1000 * 60 * 60 * 24)
+    return Math.floor(time / (1000 * 60 * 60 * 24))
   }
   
   getFullDaysRemains(time: number): number {
@@ -16,7 +16,7 @@ class Main {
   }
 
   getFullHours(time: number): number {
-    return (time - (time % (1000 * 60 * 60))) /(1000 * 60 * 60)
+    return Math.floor(time  /(1000 * 60 * 60))
   }
 
   getFullHoursRemaining(time: number): number {
@@ -24,7 +24,7 @@ class Main {
   }
   
   getFullMinutes(time: number): number {
-    return (time - (time % (1000 * 60))) /(1000 * 60)
+    return Math.floor(time /(1000 * 60))
   }
 
   getFullMinutesRemaining(time: number): number {
@@ -32,7 +32,7 @@ class Main {
   }
 
   getFullSeconds(time: number): number {
-    return (time - (time % (1000))) /(1000)
+    return Math.floor(time  /(1000))
   }
 
   getFullSecondsRemaining(time: number): number {

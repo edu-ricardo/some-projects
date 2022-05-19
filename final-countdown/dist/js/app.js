@@ -15,25 +15,25 @@ class Main {
         };
     }
     getFullDays(time) {
-        return (time - (time % (1000 * 60 * 60 * 24))) / (1000 * 60 * 60 * 24);
+        return Math.floor(time / (1000 * 60 * 60 * 24));
     }
     getFullDaysRemains(time) {
         return time % (1000 * 60 * 60 * 24);
     }
     getFullHours(time) {
-        return (time - (time % (1000 * 60 * 60))) / (1000 * 60 * 60);
+        return Math.floor(time / (1000 * 60 * 60));
     }
     getFullHoursRemaining(time) {
         return (time % (1000 * 60 * 60));
     }
     getFullMinutes(time) {
-        return (time - (time % (1000 * 60))) / (1000 * 60);
+        return Math.floor(time / (1000 * 60));
     }
     getFullMinutesRemaining(time) {
         return (time % (1000 * 60));
     }
     getFullSeconds(time) {
-        return (time - (time % (1000))) / (1000);
+        return Math.floor(time / (1000));
     }
     getFullSecondsRemaining(time) {
         return (time % (1000));
