@@ -70,7 +70,6 @@ class Main {
 
     this.countdown()
     this.countdowId = setInterval(this.countdown, 1000)
-
   }
 }
 
