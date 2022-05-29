@@ -5,6 +5,7 @@ export class Rect {
         this.width = w;
         this.height = h;
     }
+    isSquare() { return this.width === this.height; }
     isColiding(anotherRect) {
         if (this.x + this.width >= anotherRect.x &&
             this.x <= anotherRect.x + anotherRect.width &&

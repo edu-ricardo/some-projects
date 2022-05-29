@@ -4,6 +4,8 @@ export class Rect {
   width: number
   height: number
 
+  isSquare():boolean { return this.width === this.height }
+
   isColiding(anotherRect: Rect): boolean {
 
     if (this.x + this.width >= anotherRect.x && 

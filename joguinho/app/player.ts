@@ -1,8 +1,10 @@
-export class Player {
-  positionX: number = 0
-  positionY: number = 0
+import { GameElement } from "./game-element.js";
+
+export class Player extends GameElement{
+  points: number
 
   constructor() {
+    super()
     
   }
 }

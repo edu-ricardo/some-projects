@@ -1,11 +1,18 @@
-import { GameScreen, PLAYER_SIZE } from "./game-screen.js";
+import { GameScreen, GOAL_SIZE, GUN_SIZE, PLAYER_SIZE } from "./game-screen.js";
+import { Gun } from "./gun.js";
 import { Player } from "./player.js";
 
 export class Game {
   private _player: Player
   private _playerMovements: Map<string,Function> 
-
+  private _guns: Array<Gun> = []
   
+  
+  public get guns() : Array<Gun> {
+    return this._guns
+  }
+  
+
   public get player() : Player {
     return this._player
   }
@@ -58,5 +65,10 @@ export class Game {
 
     document.addEventListener('keydown', this.keyboardInput)
 
+    const g = new Gun()
+    g.target = this._player
+    g.positionX = gameScreen.width - GUN_SIZE
+    g.positionY = Math.floor(Math.random() * (gameScreen.height- PLAYER_SIZE - 1)) + GOAL_SIZE
+    this._guns.push(g)
   }
 }  

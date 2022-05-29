@@ -3,11 +3,11 @@ import { Rect } from "./geometry/rect.js";
 
 const PIXEL_SIZE = 12
 export const PLAYER_SIZE = 4
-const GOAL_SIZE = 4
+export const GOAL_SIZE = 4
+export const GUN_SIZE = 2
 
 export class GameScreen {
   private _component: HTMLCanvasElement = document.createElement('canvas')
-  private _points: number = 0
 
   width: number = 50  
   height: number = 50
@@ -27,6 +27,23 @@ export class GameScreen {
     const playerRect = new Rect(game.player.positionX, game.player.positionY, PLAYER_SIZE, PLAYER_SIZE)
     gameCanvas.fillRect(playerRect.x, playerRect.y, playerRect.width, playerRect.height)
 
+    game.guns.forEach((gun) => {
+      gameCanvas.fillStyle = 'red'
+      gun.rect = new Rect(gun.positionX, gun.positionY, GUN_SIZE, GUN_SIZE)
+      gameCanvas.fillRect(gun.rect.x, gun.rect.y, gun.rect.width, gun.rect.height)
+
+
+      gun.projectiles.forEach((p) => {
+        gameCanvas.fillStyle = 'black'
+        p.rect = new Rect(p.positionX, p.positionY, 1, 1)
+        gameCanvas.fillRect(p.rect.x, p.rect.y, p.rect.width, p.rect.height)        
+
+        if(p.rect.isColiding(playerRect)){
+          console.log('Dead .......');
+          
+        }
+      })
+    });
 
     // Chekcing colision with goal
     if (playerRect.isMerged(goalRect)) console.log('Merged');

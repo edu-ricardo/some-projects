@@ -1,8 +1,10 @@
-import { PLAYER_SIZE } from "./game-screen.js";
+import { GOAL_SIZE, GUN_SIZE, PLAYER_SIZE } from "./game-screen.js";
+import { Gun } from "./gun.js";
 import { Player } from "./player.js";
 export class Game {
     constructor(gameScreen) {
         this.gameScreen = gameScreen;
+        this._guns = [];
         this.movePlayerLeft = () => {
             if (this._player.positionX - 1 >= 0) {
                 this._player.positionX--;
@@ -37,6 +39,14 @@ export class Game {
         this._playerMovements.set('ArrowLeft', this.movePlayerLeft);
         this._playerMovements.set('ArrowRight', this.movePlayerRight);
         document.addEventListener('keydown', this.keyboardInput);
+        const g = new Gun();
+        g.target = this._player;
+        g.positionX = gameScreen.width - GUN_SIZE;
+        g.positionY = Math.floor(Math.random() * (gameScreen.height - PLAYER_SIZE - 1)) + GOAL_SIZE;
+        this._guns.push(g);
+    }
+    get guns() {
+        return this._guns;
     }
     get player() {
         return this._player;

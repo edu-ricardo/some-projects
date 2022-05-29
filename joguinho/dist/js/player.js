@@ -1,6 +1,6 @@
-export class Player {
+import { GameElement } from "./game-element.js";
+export class Player extends GameElement {
     constructor() {
-        this.positionX = 0;
-        this.positionY = 0;
+        super();
     }
 }
