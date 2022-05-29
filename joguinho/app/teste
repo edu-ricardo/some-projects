@@ -1,0 +1,15 @@
+  // click = (e: MouseEvent) => {
+  //   if (e.target instanceof HTMLCanvasElement) {
+  //     const rect =  e.target.getBoundingClientRect()
+  //     const f = new Food()
+  //     f.positionX = Math.floor((e.clientX - rect.left) / PIXEL_SIZE)
+  //     f.positionY = Math.floor((e.clientY - rect.top) / PIXEL_SIZE)
+
+  //     console.log('Food on '+ f.positionX + ' // '+ f.positionY);
+  //     console.log(e);
+      
+      
+  //     this._game.food.push(f)
+  //     this.render(this._game)
+  //   }
+  // }

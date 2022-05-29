@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "outDir": "dist/js",
+        "target": "ES2019",
+        "noEmitOnError": false,
+        "noImplicitAny": true,
+    },
+    "lib": ["es6", "es2017.string"],
+    "include": ["app/**/*"]
+}

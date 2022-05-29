@@ -23,7 +23,12 @@ export class Popup {
     closeLink.href = '#'
     closeLink.innerHTML = '&times;'
 
-    closeLink.addEventListener('click', (e) => { this.onClose && this.onClose(e) })
+    closeLink.addEventListener('click', (e) => { 
+      mainDiv.innerHTML = ''
+
+      document.body.removeChild(mainDiv)
+      this.onClose && this.onClose(e) 
+    })
 
     popup.appendChild(closeLink)
 
