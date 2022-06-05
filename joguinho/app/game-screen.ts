@@ -23,14 +23,14 @@ export class GameScreen {
     game.platforms.forEach((platform: Platform) => {
       platform.update(gameCanvas)
 
-      if (platform.geometry.isColiding(game.player.geometry)) {
+      if (platform.collider.isColiding(game.player.collider)) {
         if (game.player.velocity.y > 0)
           game.player.velocity.y = 0
       }
 
-      if (platform.geometry.isMerged(game.player.geometry)) {
-        if (game.player.geometry instanceof Rect)
-          game.player.geometry.y = platform.geometry.y - game.player.geometry.height
+      if (platform.collider.isMerged(game.player.collider)) {
+        if (game.player.collider instanceof Rect)
+          game.player.collider.y = platform.collider.y - game.player.collider.height
       }
 
     })

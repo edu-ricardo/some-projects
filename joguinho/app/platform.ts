@@ -6,7 +6,7 @@ export class Platform extends GameElement {
   
   constructor(rect:{x: number, y:number, width: number, height: number}) {
     super()
-    this.geometry = new Rect(rect.x, rect.y, rect.width, 1)
+    this.collider = new Rect(rect.x, rect.y, rect.width, 1)
     this.geometryVisual = new Rect(rect.x, rect.y, rect.width, rect.height)
   }
 
