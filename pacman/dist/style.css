@@ -17,3 +17,33 @@ body {
   flex-direction: column;
   align-items: center;
 }
+
+canvas {
+  border: 1px black solid;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.5);
+  display: flex;
+  /* width: 600px;  
+  height: 600px;   */
+  margin-top: 20px;
+}
+
+.buttons-div {
+  margin: 10px;
+}
+
+.buttons-div button {
+  margin: 10px;
+  background-color: #34495e;
+  color: white;
+  border: none;
+  display: block;
+  width: 100%;
+  padding: 5px;  
+  font-family: inherit;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.buttons-div button:hover {
+  background-color: #2c3e50;
+}

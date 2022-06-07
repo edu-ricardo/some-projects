@@ -1,1 +1,3 @@
-console.log('Hello World');
+import { Game } from "./game.js";
+const game = new Game();
+game.animate();
