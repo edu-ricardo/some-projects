@@ -1,11 +1,18 @@
 import { Rect } from "./rect.js";
 
 export class Circle {
-  draw(context: CanvasRenderingContext2D) {
+  draw(context: CanvasRenderingContext2D, startRadius: number= 0, endRadius: number = Math.PI*2, rotation:number=0) {
+    context.save()
+    context.translate(this.x, this.y)
+    context.rotate(rotation)
+    context.translate(-this.x, -this.y)
+
     context.beginPath();
-    context.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+    context.arc(this.x, this.y, this.radius, startRadius, endRadius);
+    context.lineTo(this.x, this.y)
     context.fill();
     context.closePath();
+    context.restore()
   }
 
   isColiding(subject: Rect | Circle): boolean {

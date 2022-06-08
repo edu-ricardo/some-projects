@@ -1,15 +1,19 @@
 import { Boundery } from "./boundery.js"
 import { CommandKey } from "./command-key.js"
-import { map } from "./configs.js"
+import { map, mapIcons } from "./configs.js"
 import { Pacman } from "./pacman.js"
+import { Pellet } from "./pellets.js"
 
 export class Game {
   private _canvas = document.createElement('canvas')
   private _context: CanvasRenderingContext2D
   private _animationId: number = 0
   private _bounderies: Array<Boundery> = []
+  private _pellets: Array<Pellet> = []
   private pacman: Pacman
   private commands: Array<CommandKey> = []
+  private _spanPoints = document.createElement('span')
+  private _points = 0
 
   pause = () => {
     cancelAnimationFrame(this._animationId)
@@ -17,6 +21,12 @@ export class Game {
 
   continue = () => {
     this._animationId = requestAnimationFrame(this.animate)
+  }
+
+  restart = () => {
+    this.pause()
+    this.init()
+    this.continue()
   }
 
   createButtons() {
@@ -33,16 +43,23 @@ export class Game {
     btnContinue.addEventListener('click', this.continue)
     divBtns.appendChild(btnContinue)
 
+    const btnRestart = document.createElement('button')
+    btnRestart.innerText = 'Restart'
+    btnRestart.addEventListener('click', this.restart)
+    divBtns.appendChild(btnRestart)    
+
     document.body.appendChild(divBtns)
   }
 
   createMap() {
     map.forEach((row, i) => {
       row.forEach((column, j) => {
-        switch(column) {
-          case '-':
-            this._bounderies.push(new Boundery(j * Boundery.defaultWidth, i * Boundery.defaultHeight))
-            break;
+        const b = new Boundery(j * Boundery.defaultWidth, i * Boundery.defaultHeight)
+        if (mapIcons.find(p => p === column)) {
+          b.imageUrl = `images/${column}.png`
+          this._bounderies.push(b)
+        } else if ( column === '.') {
+          this._pellets.push(new Pellet(j * Boundery.defaultWidth + Boundery.defaultWidth / 2, i * Boundery.defaultHeight + Boundery.defaultHeight / 2))
         }
       })
     })
@@ -119,20 +136,29 @@ export class Game {
     addEventListener('keyup', this.keyUp)
   }
 
+  init = () => {
+    this._points = 0
+    this.createMap()
+    this.createCommandListener()
+  }
+
   constructor() {
-    this._canvas.width = 400 
-    this._canvas.height = 400
+    this._spanPoints.innerHTML = 'Pontuação: 0'
+    document.body.appendChild(this._spanPoints)  
+
+    this._canvas.width = 600 
+    this._canvas.height = 600
     document.body.appendChild(this._canvas)
 
     this.createButtons()
-    this.createMap()
-    this.createCommandListener()
+    this.init()
 
     this._context = this._canvas.getContext("2d")
   }
 
 
   animate = () => {
+    this._spanPoints.innerHTML = `Pontuação: ${this._points}`
     this._context.clearRect(0,0,this._canvas.width, this._canvas.height)
     this._context.fillStyle = 'black'
     this._context.fillRect(0,0,this._canvas.width, this._canvas.height)
@@ -147,7 +173,22 @@ export class Game {
           y: 0
         }
     })    
+
+    for (let i = this._pellets.length - 1; i >= 0; i--) {
+      const p = this._pellets[i];
+      p.update(this._context) 
+
+      if (p.geometry.isColiding(this.pacman.geometry)){
+        this._pellets.splice(i, 1)
+        this._points += p.pointValue
+      } 
+    }    
     
+    if (this._pellets.length === 0) {
+      console.log('You Win');
+      this.restart()
+    }
+
     this.pacman.update(this._context)    
     this._animationId = requestAnimationFrame(this.animate)
   }
